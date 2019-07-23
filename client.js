@@ -31,6 +31,56 @@ const employees = [
   }
 ];
 
+for (let i = 0; i < employees.length; i++){
+  console.log(new EmployeeData(employees[i]));
+  // getting the for loop to run to the index of the employee array.  
+}
+
+
+
+function EmployeeData(employee){
+  //console.log('in Employee Data');
+  this.name = employee.name;
+  this.bonusPercentage = getBonusPercentage(employee);
+  this.totalBonus = Math.round(getBonusPercentage(employee) * employee.annualSalary);
+  this.totalCompensation = this.totalBonus + parseInt(employee.annualSalary);
+  
+}// end EmployeeData
+
+function getBonusPercentage(employee) {
+  let returnPercentage = 0;
+  if (employee.reviewRating === 3) {
+    returnPercentage += 4;
+  } else if (employee.reviewRating === 4) {
+    returnPercentage += 6;
+  } else if (employee.reviewRating === 5) {
+    returnPercentage += 10;
+  };
+  if (employee.employeeNumber.length === 4) {
+    returnPercentage += 5;
+  };
+  if (parseInt(employee.annualSalary) > 65000) {
+    returnPercentage -= 1;
+  };
+  if (returnPercentage < 0) {
+    returnPercentage = 0;
+  };
+  if (returnPercentage > 13) {
+    returnPercentage = 13;
+  };
+  return (returnPercentage / 100);
+}
+
+
+function calculateBonus(employee){
+  //console.log('in calculateBonus');
+  if (employee.reviewRating === 2) {
+    return 0;
+  }
+  
+}
+
+
 // YOU SHOULD NOT NEED TO CHANGE ANYTHING ABOVE THIS POINT
 
 // Take small steps! Don't write a for loop and two functions that do all of the calculations right away.
