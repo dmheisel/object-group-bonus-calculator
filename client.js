@@ -1,3 +1,10 @@
+$(document).ready(readyNow);
+
+function readyNow(){
+  console.log('Ready!');
+  $('#getBonusButton').on('click', buttonHandler);
+}
+
 const employees = [
   {
     name: 'Atticus',
@@ -31,11 +38,24 @@ const employees = [
   }
 ];
 
-for (let i = 0; i < employees.length; i++){
-  console.log(new EmployeeData(employees[i]));
-  // getting the for loop to run to the index of the employee array.  
-}
 
+function buttonHandler(){
+  $('#employeeBonusList').empty();
+  console.log('list emptied');
+  for (let i = 0; i < employees.length; i++){
+    
+    let newEmployeeObject = new EmployeeData(employees[i]);
+    $('#employeeBonusList').append(`<li>
+                                    Name: ${newEmployeeObject.name}
+                                    <br>Bonus Percentage: ${newEmployeeObject.bonusPercentage * 100}%
+                                    <br>Total Bonus: $${newEmployeeObject.totalBonus}
+                                    <br>Total Compensation: $${newEmployeeObject.totalCompensation}
+                                    </li>`);
+  // getting the for loop to run to the index of the employee array.
+  };
+  console.log('list filled');
+  //$(this).attr('disabled', true)//disables button on completion of function.
+}
 
 
 function EmployeeData(employee){
