@@ -40,9 +40,11 @@ for (let i = 0; i < employees.length; i++){
 
 function EmployeeData(employee){
   //console.log('in Employee Data');
+  let bonusPercentage = getBonusPercentage(employee);
+
   this.name = employee.name;
-  this.bonusPercentage = getBonusPercentage(employee);
-  this.totalBonus = Math.round(getBonusPercentage(employee) * employee.annualSalary);
+  this.bonusPercentage = bonusPercentage;
+  this.totalBonus = Math.round(bonusPercentage * employee.annualSalary);
   this.totalCompensation = this.totalBonus + parseInt(employee.annualSalary);
   
 }// end EmployeeData
