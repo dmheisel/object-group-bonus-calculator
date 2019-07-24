@@ -1,10 +1,4 @@
-$(document).ready(readyNow);
-
-function readyNow(){
-  console.log('Ready!');
-  $('#getBonusButton').on('click', buttonHandler);
-}
-
+// js employee bonus calculations
 const employees = [
   {
     name: 'Atticus',
@@ -38,70 +32,70 @@ const employees = [
   }
 ];
 
+$(document).ready(readyNow);
 
-function buttonHandler(){
-  $('#employeeBonusList').empty();
-  console.log('list emptied');
-  for (let i = 0; i < employees.length; i++){
-    
-    let newEmployeeObject = new EmployeeData(employees[i]);
-    $('#employeeBonusList').append(`<li>
-                                    Name: ${newEmployeeObject.name}
-                                    <br>Bonus Percentage: ${newEmployeeObject.bonusPercentage * 100}%
-                                    <br>Total Bonus: $${newEmployeeObject.totalBonus}
-                                    <br>Total Compensation: $${newEmployeeObject.totalCompensation}
-                                    </li>`);
-  // getting the for loop to run to the index of the employee array.
-  };
-  console.log('list filled');
-  //$(this).attr('disabled', true)//disables button on completion of function.
+function readyNow() {
+  console.log('Ready!');
+  $('#getBonusButton').on('click', buttonHandler); // runs buttonHandler on click
 }
 
+function buttonHandler() {
+  $('#employeeBonusList').empty(); // clears list of display prior to updating
 
-function EmployeeData(employee){
-  //console.log('in Employee Data');
-  let bonusPercentage = getBonusPercentage(employee);
+  for (let employee of employees) {
+    let bonusInfo = new EmployeeBonusData(employee);
+    $('#employeeBonusList').append(`<li>
+      Name: ${bonusInfo.name}
+      <br>Bonus Percentage: ${bonusInfo.bonusPercentage * 100}%
+      <br>Total Bonus: $${bonusInfo.totalBonus}
+      <br>Total Compensation: $${bonusInfo.totalCompensation}
+      </li>`);
+    // loops through list of employees and generates bonus info, appends to DOM
+  }
+}
+
+function EmployeeBonusData(employee) {
+  /* runs getBonusPercentage() to get percentage of employee's bonus, creates a
+  new object with props for bonusPercentage, totalBonus, and totalCompensation */
+
+  let bonusPercentage = getBonusPercentage(employee); // retrieves percentage
 
   this.name = employee.name;
-  this.bonusPercentage = bonusPercentage;
+  this.bonusPercentage = bonusPercentage; // sets percentage
   this.totalBonus = Math.round(bonusPercentage * employee.annualSalary);
+  //percentage times annual salary
   this.totalCompensation = this.totalBonus + parseInt(employee.annualSalary);
-  
-}// end EmployeeData
+  //total bonus + salary -- need to parseInt to avoid concat problems
+}
 
 function getBonusPercentage(employee) {
   let returnPercentage = 0;
+
   if (employee.reviewRating === 3) {
     returnPercentage += 4;
   } else if (employee.reviewRating === 4) {
     returnPercentage += 6;
   } else if (employee.reviewRating === 5) {
     returnPercentage += 10;
-  };
+  } // sets bonus start value based on review rating
+
   if (employee.employeeNumber.length === 4) {
     returnPercentage += 5;
-  };
+  } // adds 5 percent if employee number indicates long-term employee
+
   if (parseInt(employee.annualSalary) > 65000) {
+    // parseInt not needed?
     returnPercentage -= 1;
-  };
+  } // drops 1 percent if employee has high salary
+
   if (returnPercentage < 0) {
     returnPercentage = 0;
-  };
-  if (returnPercentage > 13) {
+  } else if (returnPercentage > 13) {
     returnPercentage = 13;
-  };
-  return (returnPercentage / 100);
+  } // sets bonus range between 0% and 13% -- cannot be out of this range.
+
+  return returnPercentage / 100; // converts to float for percentage calculation
 }
-
-
-function calculateBonus(employee){
-  //console.log('in calculateBonus');
-  if (employee.reviewRating === 2) {
-    return 0;
-  }
-  
-}
-
 
 // YOU SHOULD NOT NEED TO CHANGE ANYTHING ABOVE THIS POINT
 
@@ -111,5 +105,3 @@ function calculateBonus(employee){
 
 // This is not a race. Everyone on your team should understand what is happening.
 // Ask questions when you don't.
-
-console.log( employees );

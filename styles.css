@@ -14,6 +14,10 @@ font-size:1.2em;
 }
 
 body {
-    background-image: url(/Users/mileslacek/prime/tier2/assignments/object-group-bonus-calculator/images/moneybag.png);
+    background-image: url(images/moneybag.png);
     background-size: contain;
+}
+
+ul {
+    background-color: lightgray;
 }
