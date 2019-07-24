@@ -55,8 +55,8 @@ function buttonHandler() {
 }
 
 function EmployeeBonusData(employee) {
-  /* runs getBonusPercentage() to get percentage of employee's bonus, creates a
-  new object with props for bonusPercentage, totalBonus, and totalCompensation */
+  /* object constructor function to create object with employee bonus data --
+  returns object w/ props name, bonusPercentage, totalBonus, totalCompensation */
 
   let bonusPercentage = getBonusPercentage(employee); // retrieves percentage
 
@@ -69,6 +69,7 @@ function EmployeeBonusData(employee) {
 }
 
 function getBonusPercentage(employee) {
+  //returns decimal value - percentage for calculating employee bonus
   let returnPercentage = 0;
 
   if (employee.reviewRating === 3) {
